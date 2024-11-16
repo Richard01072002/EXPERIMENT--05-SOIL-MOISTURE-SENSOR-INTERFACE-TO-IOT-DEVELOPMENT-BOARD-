@@ -45,7 +45,7 @@ GND is the ground pin.
 
  2. click on FILE, click on new stm 32 project 
  ![image](https://user-images.githubusercontent.com/36288975/226189215-2d13ebfb-507f-44fc-b772-02232e97c0e3.png)
-![image](https://user-images.githubusercontent.com/36288975/226189230-bf2d90dd-9695-4aaf-b2a6-6d66454e81fc.png)
+
 3. select the target to be programmed  as shown below and click on next 
 
 ![image](https://user-images.githubusercontent.com/36288975/226189280-ed5dcf1d-dd8d-43ae-815d-491085f4863b.png)
@@ -59,19 +59,14 @@ GND is the ground pin.
 
 6.select the appropriate pins as gipo, in or out, USART or required options and configure 
 ![image](https://user-images.githubusercontent.com/36288975/226189403-f7179f1a-3eae-4637-826b-ab4ec35ba1e1.png)
-![image](https://user-images.githubusercontent.com/36288975/226189425-2b2414ce-49b3-4b61-a260-c658cb2e4152.png)
+
 
 
 7.click on cntrl+S , automaticall C program will be generated 
 ![image](https://user-images.githubusercontent.com/36288975/226189443-8b43451d-0b14-47e4-a20b-cc09c6ad8458.png)
-![image](https://user-images.githubusercontent.com/36288975/226189450-85ffa969-2ffb-4788-81e5-72d60fdda0f1.png)
+
 8. edit the program and as per required 
 ![image](https://user-images.githubusercontent.com/36288975/226189461-a573e62f-a109-4631-a250-a20925758fe0.png)
-
-9. use project and build all 
-![image](https://user-images.githubusercontent.com/36288975/226189554-3f7101ac-3f41-48fc-abc7-480bd6218dec.png)
-10. once the project is bulild 
-![image](https://user-images.githubusercontent.com/36288975/226189577-c61cc1eb-3990-4968-8aa6-aefffc766b70.png)
 
 11. click on debug option 
 ![image](https://user-images.githubusercontent.com/36288975/226189625-37daa9a3-62e9-42b5-a5ce-2ac63345905b.png)
@@ -97,11 +92,37 @@ GND is the ground pin.
 
 
 ## STM 32 CUBE PROGRAM :
+```
+int adc_val;
+ while (1)
+  {
+    HAL_ADC_Start(&hadc);
+                           HAL_ADC_PollForConversion(&hadc,100);
+                           adc_val = HAL_ADC_GetValue(&hadc);
+                           HAL_ADC_Stop(&hadc);
+                           HAL_Delay(500);
 
+                           uint32_t soilmoist;
+    soilmoist=adc_val/10.24;
+                           printf("soilmoisture :%ld\n",soilmoist);
+                           if(adc_val<500)
+                           {
+                        	   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
+                           }
+                           if(adc_val>500)
+                           {
+                        	   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
+                           }
+
+
+
+  }
+```
 
 
 ## Output screen shots on serial monitor   :
- 
+ ![image](https://github.com/user-attachments/assets/52cefaf0-ef7d-4a4e-acc3-41e6a68a6feb)
+
  
  
  
